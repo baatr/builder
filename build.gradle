@@ -20,8 +20,8 @@ task buildBar(){
     def components_string = getEnvironmentProperty('ComponentList')
     
     def iibBuilder = new IIBMQBuilderClass(components_string)
-    println iibBuilder.getName()
-    println components_string
+    println iibBuilder.initiateComponents()
+    //println components_string
 
     //input: array of components to build
     //  search all components (Queues, Bars) in yaml
