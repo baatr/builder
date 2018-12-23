@@ -14,13 +14,14 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
-import myapp.gradle.IIBClass
+import myapp.gradle.IIBMQBuilderClass
 
 task buildBar(){
-    def components = getEnvironmentProperty('ComponentList')
-    def iibBuilder = new IIBClass()
+    def components_string = getEnvironmentProperty('ComponentList')
+    
+    def iibBuilder = new IIBMQBuilderClass(components_string)
     println iibBuilder.getName()
-    println components
+    println components_string
 
     //input: array of components to build
     //  search all components (Queues, Bars) in yaml
