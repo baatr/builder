@@ -14,6 +14,10 @@ class Sender implements Channel {
 
     @Override
     String[] generate() {
-        return [xmitq.generate(), "DEFINE CHANNEL(" + name + ") CHLTYPE(SDR) CONNAME('" + conname + "') TRPTYPE(TCP) XMITQ(" + xmitq.name + ")"]
+        return [
+                xmitq.generate(),
+                "DEFINE CHANNEL(" + name + ") CHLTYPE(SDR) CONNAME('" + conname + "') TRPTYPE(TCP) XMITQ(" + xmitq.name + ")",
+                "START CHANNEL (" + name + ")"
+        ]
     }
 }
