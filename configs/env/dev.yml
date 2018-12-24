@@ -1,0 +1,21 @@
+- host1
+  subsystem:ifr1
+  qm:DBO2.IFR1.QM
+  port:1414
+  subsystem:ifr2
+  qm:DBO2.IFR2.QM
+  port:1415
+- host2:ssh_port
+  subsystem:iib
+  qm:DBO2IIB.QM
+  tag: IIB_QM
+  port:1414
+  mb:DBO2IBNODE
+- host3
+  subsystem:mbank_1
+  qm:VTBBM.QM.TEST
+  port:1421
+- host4
+  subsystem:mbank_2
+  qm:BMVTB.QM.TEST
+  port:1421

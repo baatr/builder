@@ -1,0 +1,66 @@
+subsystems:
+  - name:
+      - ifr1
+      - ifr2
+    tag: dbo2
+    qm:
+      grants:
+        - +connect
+        - +inq
+      queues:
+        - name: TEMP.TQ
+          type: transmit
+        - name: REM.RQ
+          type: remote
+          rname: REM.Q
+          rqmname: IIB_QM
+          tqname: TEMP.TQ
+          grants:
+            - +get
+            - +put
+        - name: LOCT.Q
+          type: local
+          grants:
+            - +get
+            - +put
+        - name: ALIA.Q
+          type: alias
+          grants:
+            - +get
+            - +put
+      channels:
+        - name: TO.IIB
+          type: sdr
+        - name: FROM.IIB
+          type: rcvr
+  - name: iib
+    qm:
+      queues:
+        - name: LOCT.Q
+          type: local
+          grants:
+            - +get
+            - +put
+        - name: REM.RQ
+          type: remote
+          rname: REM.Q
+          rqmname: MBANK_QM
+          tqname: TEMP.TQ
+          grants:
+            - +get
+            - +put
+      channels:
+        - name: TO.MBANK
+          type: sdr
+        - name: FROM.MBANK
+          type: rcvr
+    iib:
+      egroups:
+        - name: egr1
+          artifacts:
+            - name: dbo2.iadp.app1
+              type: msgflow
+              path: /projects/DBO2/ru/vtb/dbo2/iadp/app1.msgflow
+              dependencies:
+                - lib1
+                - lib2
