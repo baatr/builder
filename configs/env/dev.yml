@@ -13,9 +13,9 @@
       mb: DBO2IBNODE
 - host3:
     - subsystem: mbank_1
-      qm: VTBBM.QM.TEST
+      qm: QM1.TEST
       port: 1421
 - host4:
     - subsystem: mbank_2
-      qm: BMVTB.QM.TEST
+      qm: QM2.TEST
       port: 1421

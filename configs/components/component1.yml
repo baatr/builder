@@ -5,8 +5,11 @@ subsystems:
     tag: dbo2
     qm:
       grants:
-        - +connect
-        - +inq
+        - user1:
+            - +connect
+        - user2:
+            - +connect
+            - +get
       queues:
         - name: TEMP.TQ
           type: transmit
@@ -60,7 +63,7 @@ subsystems:
           artifacts:
             - name: dbo2.iadp.app1
               type: msgflow
-              path: /projects/DBO2/ru/vtb/dbo2/iadp/app1.msgflow
+              path: /projects/DBO2/iadp/app1.msgflow
               dependencies:
                 - lib1
                 - lib2

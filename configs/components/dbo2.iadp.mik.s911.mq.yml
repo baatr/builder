@@ -1,0 +1,114 @@
+subsystems:
+  - name:
+      - ifr1
+    tag: dbo2
+    qm:
+      grants:
+        - mq_mik:
+            - +connect
+            - +inq
+      queues:
+        - name: IFR1.IIB.TQ
+          type: transmit
+          channel: IFR1.IIB.CH
+
+        - name: MIK.IIB.GET_TEMP.REQ.RQ
+          type: remote
+          rname: MIK.IIB.GET_TEMP.REQ.Q
+          rqmname: ref_IIB_QM
+          tqname: IFR1.IIB.TQ
+          grants:
+            - +inq
+            - +put
+
+        - name: IIB.MIK.GET_TEMP.RES.Q
+          type: local
+          grants:
+            - +get
+            - +inq
+            - +browse
+      channels:
+        - name: IFR1.IIB.CH
+          type: sdr
+          conname: host:1414
+          xmitq: IFR1.IIB.TQ
+        - name: IIB.IFR1.CH
+          type: rcvr
+  - name: iib
+    qm:
+      queues:
+        - name: IIB.SG.TQ
+            type: transmit
+            channel: IIB.SG.CH
+
+        - name: MIK.IIB.GET_TEMP.REQ.Q
+            type: local
+            boname: MIK.IIB.GET_TEMP.BO.RQ
+
+        - name: MIK.IIB.GET_TEMP.BO.RQ
+            type: remote
+            rname: MIK.IIB.GET_TEMP.BO.Q
+            rqmname: ref_SG_QM
+            tqname: IIB.SG.TQ
+
+        - name: MIK.IIB.GET_TEMP.ERR.RQ
+            type: remote
+            rname: MIK.IIB.GET_TEMP.ERR.Q
+            rqmname: ref_SG_QM
+            tqname: IIB.SG.TQ
+
+        - name: MIK.IIB.GET_TEMP.INV.RQ
+            type: remote
+            rname: MIK.IIB.GET_TEMP.INV.Q
+            rqmname: ref_SG_QM
+            tqname: IIB.SG.TQ
+
+        - name: IADP.MIK.S911.GET_TEMP.INT.RES.Q
+            type: local
+
+        - name: IADP.MIK.S911.GET_TEMP.RES.Q
+            type: local
+            boname: IADP.MIK.S911.GET_TEMP.BO.RES.RQ
+
+        - name: IADP.MIK.S911.GET_TEMP.RET.Q
+            type: local
+
+        - name: IADP.MIK.S911.GET_TEMP.BO.RES.RQ
+            type: remote
+            rname: IADP.MIK.S911.GET_TEMP.BO.RES.Q
+            rqmname: ref_SG_QM
+            tqname: IIB.SG.TQ
+
+        - name: IADP.MIK.S911.GET_TEMP.ERR.RES.RQ
+            type: remote
+            rname: IADP.MIK.S911.GET_TEMP.ERR.RES.Q
+            rqmname: ref_SG_QM
+            tqname: IIB.SG.TQ
+
+        - name: IIB.IFR1.TQ
+            type: transmit
+            channel: IIB.IFR1.CH
+
+        - name: ref_DBO2_QM
+            type: remote
+            rname:
+            rqmname: ref_DBO2_QM
+            tqname: IIB.IFR1.TQ
+
+      channels:
+        - name: IIB.IFR1.CH
+            type: sdr
+            conname: host:1414
+            xmitq: IIB.IFR1.TQ
+        - name: IFR1.IIB.CH
+            type: rcvr
+    iib:
+      egroups:
+        - name: egr1
+          artifacts:
+            - name: dbo2.iadp.app1
+              type: msgflow
+              path: DBO2/iadp/app1.msgflow
+              dependencies:
+                - lib1
+                - lib2
